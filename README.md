@@ -45,9 +45,9 @@ This application build is resulting a .war file not .jar as we saw before. This 
 ./mvnw cargo:run -P tomcat90
 
 
-## Build Docker image:
-mvn -N io.takari:maven:wrapper
-./mvnw clean package -DskipTests
-docker build -t jpetstore .
-docker run -p 8080:8080 --name jpetstore_container jpetstore
+## Build Docker image
+- mvn -N io.takari:maven:wrapper
+- ./mvnw clean package -DskipTests
+- docker build -t jpetstore .
+- docker run -p 8080:8080 --name jpetstore_container jpetstore
 
