@@ -1,17 +1,9 @@
-# Use a Maven image with JDK to build and run the app
-FROM maven:3.9.6-eclipse-temurin-17 AS build
+FROM tomcat:9.0-jdk17-temurin
 
-# Set the working directory
-WORKDIR /app
+RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Copy project files
-COPY . .
+COPY  ./target/*.war /usr/local/tomcat/webapps/jpetstore.war
 
-# Make mvnw executable
-RUN chmod +x mvnw
-
-# Expose the port Tomcat will use
 EXPOSE 8080
 
-# Run the app using Maven Wrapper and Cargo plugin for Tomcat
-CMD ["./mvnw", "cargo:run", "-P", "tomcat90"]
+CMD ["catalina.sh", "run"]
