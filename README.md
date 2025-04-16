@@ -43,3 +43,11 @@ Github repo containes
 This application build is resulting a .war file not .jar as we saw before. This needs a change in the command that is used to run the application. We will use mvnw as well to run the application as shown below. Here's the command used to run the app:
 
 ./mvnw cargo:run -P tomcat90
+
+
+## Build Docker image
+- mvn -N io.takari:maven:wrapper
+- ./mvnw clean package -DskipTests
+- docker build -t jpetstore .
+- docker run -p 8080:8080 --name jpetstore_container jpetstore
+
