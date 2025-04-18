@@ -82,15 +82,19 @@ pipeline {
     
     post {
         always {
-            script {
+            node('built-in') {
                 cleanWs()
             }
         }
         success {
-            echo 'Pipeline completed successfully!'
+            node('built-in') {
+                echo 'Pipeline completed successfully!'
+            }
         }
         failure {
-            echo 'Pipeline failed!'
+            node('built-in') {
+                echo 'Pipeline failed!'
+            }
         }
     }
 }
