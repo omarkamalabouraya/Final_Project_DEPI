@@ -82,14 +82,20 @@ pipeline {
     
     post {
         always {
-            sh 'docker logout'
-            cleanWs()
+            node('any') {
+                sh 'docker logout'
+                cleanWs()
+            }
         }
         success {
-            echo 'Pipeline completed successfully!'
+            node('any') {
+                echo 'Pipeline completed successfully!'
+            }
         }
         failure {
-            echo 'Pipeline failed!'
+            node('any') {
+                echo 'Pipeline failed!'
+            }
         }
     }
 }
