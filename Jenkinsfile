@@ -82,14 +82,8 @@ pipeline {
     
     post {
         always {
-            node(null) {
-                script {
-                    try {
-                        sh 'docker logout'
-                    } finally {
-                        cleanWs()
-                    }
-                }
+            script {
+                cleanWs()
             }
         }
         success {
