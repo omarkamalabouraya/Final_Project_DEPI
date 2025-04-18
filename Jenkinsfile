@@ -14,15 +14,9 @@ pipeline {
             }
         }
         
-        stage('Setup Maven Wrapper') {
-            steps {
-                sh 'mvn -N io.takari:maven:wrapper'
-            }
-        }
-        
         stage('Build') {
             steps {
-                sh './mvnw clean package -DskipTests'
+                sh 'docker run --rm -v $PWD:/app -w /app maven:3.9.2-eclipse-temurin-17 mvn clean package'
             }
         }
         
