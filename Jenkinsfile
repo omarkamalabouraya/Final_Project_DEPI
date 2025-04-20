@@ -3,7 +3,7 @@ pipeline {
     
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub')
-        DOCKER_IMAGE = "omarkamalabouraya/jpetstore"
+        DOCKER_IMAGE = "omarkamalabouraya/jpetstore2"
         DOCKER_TAG = "latest"
     }
     
@@ -15,13 +15,20 @@ pipeline {
         }
         
         stage('Build') {
+            options {
+                timeout(time: 15, unit: 'MINUTES')
+            }
             steps {
                 sh 'docker run --rm -v $PWD:/app -w /app maven:3.9.2-eclipse-temurin-17 mvn clean package'
             }
         }
         
         stage('Test') {
+            options {
+                timeout(time: 10, unit: 'MINUTES')
+            }
             steps {
+                sh 'chmod +x mvnw'
                 sh './mvnw test'
             }
             post {
@@ -52,6 +59,11 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 sh "docker push ${DOCKER_IMAGE}:${DOCKER_TAG}"
+            }
+            post {
+                always {
+                    sh 'docker logout'
+                }
             }
         }
         
